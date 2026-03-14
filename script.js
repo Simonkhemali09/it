@@ -81,6 +81,56 @@
     item.style.transitionDelay = (i * 80) + 'ms';
   });
 
+  /* ---- Animated counter for statistics ---- */
+  function easeOutQuart(t) {
+    return 1 - Math.pow(1 - t, 4);
+  }
+
+  function animateCounter(el) {
+    const text = el.textContent;
+    // Extract numeric target and any suffix
+    const match = text.match(/^(\d+)(.*)$/);
+    if (!match) return;
+    const target = parseInt(match[1], 10);
+    const suffix = match[2] || '';
+    const duration = 1800;
+    const startTime = performance.now();
+
+    function step(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const value = Math.round(easeOutQuart(progress) * target);
+      el.textContent = value + suffix;
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        // Brief flash at the end
+        el.style.animation = 'countFlash 0.4s ease';
+        setTimeout(function () { el.style.animation = ''; }, 400);
+      }
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  // Observe stat numbers; animate counter once when visible
+  const statNums = document.querySelectorAll('.stat-num[data-target]');
+  const counterObserver = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
+
+  statNums.forEach(function (el) {
+    counterObserver.observe(el);
+  });
+
   /* ---- Contact form submission ---- */
   const contactForm = document.getElementById('contactForm');
   const formSuccess = document.getElementById('formSuccess');
