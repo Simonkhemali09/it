@@ -297,8 +297,8 @@ img { max-width: 100%; display: block; }
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 28px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
 }
 
 .service-card {
@@ -414,10 +414,11 @@ img { max-width: 100%; display: block; }
   align-items: center;
 }
 
-.about-img-placeholder {
+.about-img-placeholder,
+.about-illustration {
   background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
   border-radius: var(--radius);
-  height: 380px;
+  min-height: 380px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -426,6 +427,7 @@ img { max-width: 100%; display: block; }
   text-align: center;
   gap: 12px;
   font-size: 4rem;
+  overflow: hidden;
 }
 
 .about-img-placeholder p {
@@ -469,6 +471,7 @@ img { max-width: 100%; display: block; }
 
 .gallery-placeholder {
   height: 100%;
+  position: relative;
   background: linear-gradient(135deg, var(--secondary) 0%, #34495e 100%);
   display: flex;
   align-items: center;
@@ -478,6 +481,7 @@ img { max-width: 100%; display: block; }
   font-weight: 700;
   gap: 8px;
   letter-spacing: 0.04em;
+  overflow: hidden;
 }
 
 .gallery-item:nth-child(2) .gallery-placeholder { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); }
@@ -541,6 +545,19 @@ img { max-width: 100%; display: block; }
 .info-item a:hover { color: var(--primary); }
 
 .call-btn { margin-top: 8px; text-align: center; }
+
+/* ---------- Contact Illustration ---------- */
+.contact-illustration {
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.contact-illustration svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
 
 /* ---------- Form ---------- */
 .contact-form {
@@ -644,7 +661,167 @@ img { max-width: 100%; display: block; }
 
 .footer-bottom p { font-size: 0.85rem; opacity: 0.55; }
 
-/* ---------- Animations ---------- */
+/* ---------- Hero Illustration ---------- */
+.hero-illustration {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 46%;
+  max-width: 500px;
+  z-index: 1;
+  pointer-events: none;
+  animation: heroIllustrationEntrance 1s ease 0.3s both;
+}
+
+.hero-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Spray cloud pulse */
+.spray-cloud {
+  animation: sprayCloud 3s ease-in-out infinite;
+}
+
+/* Spray particles */
+.sp { animation-iteration-count: infinite; animation-timing-function: ease-out; }
+.sp.s1 { animation: spFloat1 2.4s ease-out infinite; }
+.sp.s2 { animation: spFloat2 2.8s ease-out infinite 0.4s; }
+.sp.s3 { animation: spFloat3 2.2s ease-out infinite 0.8s; }
+.sp.s4 { animation: spFloat4 3s ease-out infinite 0.2s; }
+.sp.s5 { animation: spFloat5 2.6s ease-out infinite 1s; }
+
+/* Paint drip animation */
+.drip {
+  stroke-dasharray: 20;
+  stroke-dashoffset: 20;
+  animation: paintDrip 2.5s ease-in-out infinite 1s;
+}
+
+.drip-circle {
+  animation: dripPool 2.5s ease-in-out infinite 1s;
+}
+
+/* Fill grow on wall */
+.fill-grow {
+  transform-origin: left center;
+  animation: fillGrow 4s ease-out 0.8s both;
+}
+
+/* ---------- Paint Blobs (Hero Background) ---------- */
+.paint-blobs {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+}
+
+.blob-orange {
+  width: 420px;
+  height: 420px;
+  background: rgba(230, 126, 34, 0.18);
+  top: -120px;
+  right: 5%;
+  animation: blobPulse 9s ease-in-out infinite;
+}
+
+.blob-yellow {
+  width: 280px;
+  height: 280px;
+  background: rgba(241, 196, 15, 0.12);
+  bottom: -60px;
+  right: 30%;
+  animation: blobPulse 11s ease-in-out infinite reverse 1s;
+}
+
+.blob-blue {
+  width: 360px;
+  height: 360px;
+  background: rgba(52, 152, 219, 0.12);
+  top: 40%;
+  left: 45%;
+  animation: blobPulse 13s ease-in-out infinite 2.5s;
+}
+
+/* ---------- Service Icon SVGs ---------- */
+.service-icon {
+  font-size: 2.4rem;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.svc-svg {
+  width: 56px;
+  height: 56px;
+  transition: transform var(--transition);
+  display: block;
+}
+
+.service-card:hover .svc-svg {
+  transform: scale(1.12) rotate(-4deg);
+}
+
+/* Spray dot animation on service icon hover */
+.spray-icon-dot {
+  animation: sprayIconDot 1.8s ease-out infinite;
+}
+.spray-icon-dot.d1 { animation-delay: 0s; }
+.spray-icon-dot.d2 { animation-delay: 0.3s; }
+.spray-icon-dot.d3 { animation-delay: 0.6s; }
+
+/* Shine animation for furniture icon */
+.shine-anim {
+  animation: shinePulse 2s ease-in-out infinite;
+}
+.shine-anim:nth-child(2) { animation-delay: 0.4s; }
+.shine-anim:nth-child(3) { animation-delay: 0.8s; }
+
+/* ---------- About Illustration ---------- */
+.about-illustration {
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-hover);
+}
+
+.about-illustration svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ---------- Why Us Quality Badge ---------- */
+.quality-badge-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+}
+
+.quality-badge-svg {
+  width: 100%;
+  max-width: 320px;
+  animation: float 5s ease-in-out infinite;
+}
+
+/* ---------- Counter Numbers ---------- */
+.stat-num {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+/* ---------- CSS Animations ---------- */
 .fade-in {
   opacity: 0;
   transform: translateY(28px);
@@ -656,11 +833,121 @@ img { max-width: 100%; display: block; }
   transform: translateY(0);
 }
 
+/* ---------- Paint Splash Decoratives ---------- */
+.paint-splash-decor {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* ---------- Why Us decorative accent ---------- */
+.why-us-accent {
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  width: 180px;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.why-us-stats {
+  position: relative;
+}
+
+/* ---------- Keyframe Animations ---------- */
+
+/* Hero illustration entrance from right */
+@keyframes heroIllustrationEntrance {
+  from { opacity: 0; transform: translateX(60px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Blob background pulse */
+@keyframes blobPulse {
+  0%, 100% { transform: scale(1) translate(0, 0); }
+  33%       { transform: scale(1.12) translate(18px, -14px); }
+  66%       { transform: scale(0.92) translate(-12px, 20px); }
+}
+
+/* Spray cloud */
+@keyframes sprayCloud {
+  0%, 100% { opacity: 0.06; transform: scale(1); }
+  50%       { opacity: 0.13; transform: scale(1.06); }
+}
+
+/* Spray particle floats */
+@keyframes spFloat1 {
+  0%   { opacity: 0; transform: translate(0, 0) scale(0.4); }
+  35%  { opacity: 0.75; transform: translate(9px, -7px) scale(1); }
+  100% { opacity: 0; transform: translate(16px, -13px) scale(0.6); }
+}
+@keyframes spFloat2 {
+  0%   { opacity: 0; transform: translate(0, 0) scale(0.4); }
+  35%  { opacity: 0.65; transform: translate(13px, 3px) scale(1); }
+  100% { opacity: 0; transform: translate(22px, 6px) scale(0.6); }
+}
+@keyframes spFloat3 {
+  0%   { opacity: 0; transform: translate(0, 0) scale(0.4); }
+  35%  { opacity: 0.55; transform: translate(11px, -13px) scale(1); }
+  100% { opacity: 0; transform: translate(18px, -22px) scale(0.5); }
+}
+@keyframes spFloat4 {
+  0%   { opacity: 0; transform: translate(0, 0) scale(0.4); }
+  35%  { opacity: 0.60; transform: translate(18px, 7px) scale(1); }
+  100% { opacity: 0; transform: translate(28px, 12px) scale(0.5); }
+}
+@keyframes spFloat5 {
+  0%   { opacity: 0; transform: translate(0, 0) scale(0.4); }
+  35%  { opacity: 0.70; transform: translate(7px, 12px) scale(1); }
+  100% { opacity: 0; transform: translate(12px, 20px) scale(0.6); }
+}
+
+/* Paint drip growing */
+@keyframes paintDrip {
+  0%   { stroke-dashoffset: 20; }
+  60%  { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 0; }
+}
+
+/* Drip pool fade in */
+@keyframes dripPool {
+  0%, 50% { opacity: 0; transform: scale(0); }
+  80%      { opacity: 0.6; transform: scale(1); }
+  100%     { opacity: 0.6; transform: scale(1); }
+}
+
+/* Paint fill grow on wall */
+@keyframes fillGrow {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0% 0 0); }
+}
+
+/* Shine pulse for furniture icon */
+@keyframes shinePulse {
+  0%, 100% { opacity: 0.9; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.7); }
+}
+
+/* Service icon spray dot */
+@keyframes sprayIconDot {
+  0%   { opacity: 0; transform: scale(0.3); }
+  40%  { opacity: 0.75; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.5) translateX(5px); }
+}
+
+/* Counter highlight flash */
+@keyframes countFlash {
+  0%, 100% { color: var(--primary); }
+  50%       { color: var(--accent); }
+}
+
 /* ---------- Responsive ---------- */
 @media (max-width: 1024px) {
   .why-us-inner,
   .about-inner { grid-template-columns: 1fr; gap: 40px; }
   .hero-badge { display: none; }
+  .hero-illustration { display: none; }
 }
 
 @media (max-width: 768px) {
